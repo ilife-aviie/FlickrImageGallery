@@ -1,15 +1,15 @@
 //
-//  FlickrImageGalleryTests.swift
+//  NetworkTests.swift
 //  FlickrImageGalleryTests
 //
-//  Created by Avie on 01/10/17.
+//  Created by Avie on 02/10/17.
 //  Copyright © 2017 xyz. All rights reserved.
 //
 
 import XCTest
 @testable import FlickrImageGallery
 
-class FlickrImageGalleryTests: XCTestCase {
+class NetworkTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -21,9 +21,17 @@ class FlickrImageGalleryTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func testFetch() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let e = expectation(description: "Asyn Parsing.")
+        
+        Network().fetch(url: FeedData.feedURL, completion: { data in
+            XCTAssertNotNil(data)
+            e.fulfill()
+        })
+        
+        waitForExpectations(timeout: 10, handler: nil)
     }
     
     func testPerformanceExample() {
